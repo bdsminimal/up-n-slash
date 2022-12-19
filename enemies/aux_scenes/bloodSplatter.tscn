@@ -1,0 +1,39 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://enemies/aux_scenes/bloodSplatter.gd" type="Script" id=1]
+
+[sub_resource type="ParticlesMaterial" id=1]
+resource_local_to_scene = true
+flag_disable_z = true
+direction = Vector3( 0, -1.5, 0 )
+gravity = Vector3( 0, 98, 0 )
+initial_velocity = 200.0
+initial_velocity_random = 0.55
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+scale = 6.0
+scale_random = 1.0
+color = Color( 0.47451, 0.0666667, 0.0666667, 1 )
+hue_variation = -0.05
+hue_variation_random = 0.5
+
+[node name="bloodSplatter" type="Particles2D"]
+emitting = false
+amount = 60
+lifetime = 10.0
+one_shot = true
+speed_scale = 2.0
+explosiveness = 1.0
+local_coords = false
+process_material = SubResource( 1 )
+script = ExtResource( 1 )
+__meta__ = {
+"_editor_description_": ""
+}
+
+[node name="queue_free_delay" type="Timer" parent="."]
+wait_time = 10.0
+one_shot = true
+autostart = true
+
+[connection signal="timeout" from="queue_free_delay" to="." method="_on_queue_free_delay_timeout"]

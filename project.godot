@@ -21,6 +21,7 @@ _global_script_class_icons={
 [application]
 
 config/name="upnslash"
+run/main_scene="res://levels/mainMenu.tscn"
 config/icon="res://icon.png"
 
 [editor]
