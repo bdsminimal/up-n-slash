@@ -17,7 +17,7 @@ onready var ground = get_node("/root/world/main_TileMap")
 
 var maxHealth = 10
 var health = maxHealth
-var damage = 3
+var damage = 1
 
 var velvec = Vector2()
 var snap = Vector2(0, 100)

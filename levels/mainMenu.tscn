@@ -74,7 +74,7 @@ isOnMenu = true
 
 [node name="dmg_upgrade" parent="." instance=ExtResource( 11 )]
 position = Vector2( 1704, 384 )
-frame = 2
+frame = 5
 
 [node name="vinjete" type="TextureRect" parent="."]
 margin_right = 1920.0

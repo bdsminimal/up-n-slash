@@ -13,7 +13,7 @@ export var isOnMenu = false
 #onready var healthbar = get_node("HUD/healthbar")
 #onready var VFX_player = get_node("HUD/SH_VFX_player")
 
-var maxHealth = 26
+var maxHealth = 9
 var health = maxHealth
 var damage = 2
 

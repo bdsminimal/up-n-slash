@@ -7,9 +7,9 @@ func _ready():
 	$VFX.play("load_progressbar")
 
 func change_healthbar(newHealth, newMaxHealth):
-	$healthbar.max_value = newMaxHealth
-	$healthbar.value = newHealth
-	$hp_digital.text = newHealth as String
+	$hb_sprite/healthbar.max_value = newMaxHealth
+	$hb_sprite/healthbar.value = newHealth
+	$hb_sprite/hp_digital.text = newHealth as String
 
 
 func _on_minLoadingTime_timeout():
