@@ -7,6 +7,7 @@ export var gravity_force = 2000
 export(float) var attackCD_time = 1
 export(float) var stun_time = 0.6
 export(float) var chase_init_range = 384
+export(float) var chase_vel_accel = 1.4
 var blood_ps = preload("res://enemies/aux_scenes/bloodSplatter.tscn")
 var gore_ps = preload("res://enemies/aux_scenes/gore.tscn")
 
@@ -94,11 +95,11 @@ func chase(var mode):
 	if mode and !hasTarget:
 		hasTarget = true
 		target = player.position
-		move_speed_x *= 1
+		move_speed_x *= chase_vel_accel
 		$memoryTimer.start()
 	elif !mode and hasTarget:
 		hasTarget = false
-		move_speed_x /= 1
+		move_speed_x /= chase_vel_accel
 
 func _physics_process(delta):
 	#inflict damage
@@ -111,13 +112,11 @@ func _physics_process(delta):
 				$attackCD.start()
 				isAttackReady = false
 	
-	#check for an abyse infront
+	#check for an abyss infront
 	if !$vision_forGroundBelow.is_colliding():
 		chase(false)
 		turnPossible = true #override
-		commitTurn()
-	elif $vision_forGroundBelow.get_collision_point().y - global_position.y > 136:
-		if !hasTarget and !isStunned: commitTurn()
+		if !isStunned:commitTurn()
 	
 	#check for player visibility
 	$vision_forPlayer.cast_to = (player.position - position)
