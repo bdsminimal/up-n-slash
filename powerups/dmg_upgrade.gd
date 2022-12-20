@@ -1,6 +1,6 @@
 extends AnimatedSprite
 
-export var dmg = 2
+export var dmg = 1
 
 func _on_Area2D_area_entered(powerupEater):
 	powerupEater.get_parent().raiseDamage(dmg)

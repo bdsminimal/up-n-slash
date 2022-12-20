@@ -15,7 +15,7 @@ export var isOnMenu = false
 
 var maxHealth = 9
 var health = maxHealth
-var damage = 2
+var damage = 1
 
 var velvec = Vector2()
 var snap = Vector2(0, 100)
