@@ -22,7 +22,6 @@ extents = Vector2( 32, 76 )
 [node name="dmg_upgrade" type="AnimatedSprite"]
 scale = Vector2( 0.4, 0.4 )
 frames = SubResource( 1 )
-frame = 5
 playing = true
 offset = Vector2( 5, 0 )
 script = ExtResource( 7 )

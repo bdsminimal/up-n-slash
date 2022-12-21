@@ -72,7 +72,7 @@ align = 1
 [node name="turnCD" type="Timer" parent="."]
 wait_time = 0.6
 
-[node name="memoryTimer" type="Timer" parent="."]
+[node name="triggered" type="Timer" parent="."]
 wait_time = 5.0
 
 [node name="stun" type="Timer" parent="."]
@@ -109,8 +109,8 @@ margin_left = -80.0
 margin_top = -480.0
 margin_right = 80.0
 margin_bottom = -320.0
-max_value = 10.0
-value = 10.0
+max_value = 6.0
+value = 6.0
 texture_under = ExtResource( 10 )
 texture_progress = ExtResource( 10 )
 tint_under = Color( 0, 0, 0, 1 )
@@ -120,7 +120,7 @@ tint_progress = Color( 0, 1, 0.741176, 1 )
 anims/hurt = SubResource( 5 )
 
 [connection signal="timeout" from="turnCD" to="." method="_on_turnCD_timeout"]
-[connection signal="timeout" from="memoryTimer" to="." method="_on_memoryTimer_timeout"]
+[connection signal="timeout" from="triggered" to="." method="_on_triggered_timeout"]
 [connection signal="timeout" from="stun" to="." method="_on_stun_timeout"]
 [connection signal="timeout" from="attackCD" to="." method="_on_attackCD_timeout"]
 [connection signal="body_entered" from="hitArea" to="." method="_on_hitArea_body_entered"]

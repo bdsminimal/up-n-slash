@@ -6,8 +6,8 @@ export(float) var move_speed_x = 1
 export var gravity_force = 2000
 export(float) var attackCD_time = 1
 export(float) var stun_time = 0.6
-export(float) var chase_init_range = 384
-export(float) var chase_vel_accel = 1.4
+export(float) var trigger_range = 512
+export(float) var triggered_vel_accel = 1.4
 var blood_ps = preload("res://enemies/aux_scenes/bloodSplatter.tscn")
 var gore_ps = preload("res://enemies/aux_scenes/gore.tscn")
 
@@ -16,7 +16,7 @@ onready var player = get_node("/root/world/Player")
 onready var healthbar = get_node("scaler/healthbar")
 onready var ground = get_node("/root/world/main_TileMap")
 
-var maxHealth = 10
+var maxHealth = 6
 var health = maxHealth
 var damage = 1
 
@@ -25,9 +25,7 @@ var snap = Vector2(0, 100)
 var isFacingRight = true
 var isAttackReady = true
 var isStunned = false
-var hasTarget = false
-var target
-var delayedChase = false
+var isTriggered = false
 var turnPossible = true
 var isJustDamaged = false
 var isJustDamaged_fromRight
@@ -56,8 +54,6 @@ func takeDamage(dmg, isDirRight): #isDirRight - hit direction
 		emit_particles("gore", isDirRight)
 		queue_free()
 	
-	delayedChase = true
-	
 	$Label.modulate.a = 0.6
 	healthbar.value -= dmg
 	$VFX.play("hurt")
@@ -74,10 +70,7 @@ func think():
 	if !is_on_floor(): return
 	
 	velvec.x = 0
-	if isStationary and !hasTarget: return
-	
-	if hasTarget: if target.x < position.x == isFacingRight:
-		commitTurn()
+	if isStationary and !isTriggered: return
 	
 	velvec.x += move_speed_x * 160
 
@@ -91,15 +84,20 @@ func commitTurn():
 	$hitArea.position.x = -$hitArea.position.x
 	$AnimatedSprite.flip_h = !$AnimatedSprite.flip_h
 
-func chase(var mode):
-	if mode and !hasTarget:
-		hasTarget = true
-		target = player.position
-		move_speed_x *= chase_vel_accel
-		$memoryTimer.start()
-	elif !mode and hasTarget:
-		hasTarget = false
-		move_speed_x /= chase_vel_accel
+func trigger(var mode):
+	if mode and !isTriggered:
+		isTriggered = true
+		if player.position.x < position.x == isFacingRight:
+			commitTurn()
+		move_speed_x *= triggered_vel_accel
+		$triggered.start()
+		$Label.modulate.g = 0
+		$Label.modulate.b = 0
+	elif !mode and isTriggered:
+		isTriggered = false
+		move_speed_x /= triggered_vel_accel
+		$Label.modulate.g = 1
+		$Label.modulate.b = 1
 
 func _physics_process(delta):
 	#inflict damage
@@ -113,21 +111,18 @@ func _physics_process(delta):
 				isAttackReady = false
 	
 	#check for an abyss infront
-	if !$vision_forGroundBelow.is_colliding():
-		chase(false)
+	if !$vision_forGroundBelow.is_colliding() and $vision_forGroundBelow.get_collider() != player:
 		turnPossible = true #override
 		if !isStunned:commitTurn()
 	
-	#check for player visibility
+	#check for player
 	$vision_forPlayer.cast_to = (player.position - position)
-	if $vision_forPlayer.cast_to.x > 0 == isFacingRight and !hasTarget:
-		if $vision_forPlayer.get_collider() == player and position.distance_to(player.position) <= chase_init_range:
-			chase(true)
-	
-	#in-chase pathfinding
-	if hasTarget:
-		if $vision_forPlayer.get_collider() == player:
-			target = player.position
+	if $vision_forPlayer.get_collider() == player:
+		if $vision_forPlayer.cast_to.x > 0 == isFacingRight:
+			if position.distance_to(player.position) <= trigger_range:
+				trigger(true)
+		elif position.distance_to(player.position) <= (trigger_range / 2):
+			trigger(true)
 	
 	#think where to move
 	think()
@@ -144,25 +139,20 @@ func _on_attackCD_timeout():
 
 
 func _on_stun_timeout():
-	if delayedChase:
-		delayedChase = false
-		chase(true)
 	isStunned = false
 	$Label.modulate.a = 1
 
 
-func _on_memoryTimer_timeout():
-	chase(false)
-
-
 func _on_hitArea_body_entered(body):
 	if body != player:
-		chase(false)
 		turnPossible = true #override
 		commitTurn()
-	else: chase(true)
 
 
 
 func _on_turnCD_timeout():
 	turnPossible = true
+
+
+func _on_triggered_timeout():
+	trigger(false)

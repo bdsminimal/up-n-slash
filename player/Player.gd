@@ -43,6 +43,9 @@ func _ready():
 	$Camera2D.limit_top = camera_limit_top
 	$Camera2D.limit_bottom = camera_limit_bottom
 	
+	#HUD update
+	$HUD.change_healthbar(health, maxHealth, 0)
+	
 	#multiple signals connection
 	var enemies = get_tree().get_nodes_in_group("enemy")  
 	for enemy in enemies:
@@ -66,20 +69,22 @@ func heal(hp): #if hp less than 0 then its a powerup
 			if (health - maxHealth == hp): hp = 0
 			health = maxHealth
 	else:
-		hp = -hp
-		maxHealth += hp
+		maxHealth -= hp
 		health = maxHealth
 		maxHealthChanged = true
+	
 	changeHealth_visuals(hp)
 
 func changeHealth_visuals(amount):
-	if amount < 0:
-		$VFX.play("hurt")
-	elif !maxHealthChanged and amount != 0:
-		$VFX.play("heal")
+	if !maxHealthChanged:
+		if amount < 0:
+			$VFX.play("hurt")
+		elif amount != 0:
+			$VFX.play("heal")
 	
 	#HUD manipulations
-	$HUD.change_healthbar(health, maxHealth)
+	var type = -1 if amount == 0 and !maxHealthChanged else (0 if maxHealthChanged else (1 if amount > 0 else 2))
+	$HUD.change_healthbar(health, maxHealth, type)
 	maxHealthChanged = false
 
 func get_input():

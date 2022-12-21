@@ -122,67 +122,74 @@ own_name = "Egor"
 
 [node name="hp_upgrade" parent="powerups/hp_upgrade" instance=ExtResource( 4 )]
 position = Vector2( 1560, -576 )
-frame = 3
+frame = 4
 
 [node name="hp_upgrade2" parent="powerups/hp_upgrade" instance=ExtResource( 4 )]
 position = Vector2( 133, 618 )
-frame = 3
+frame = 4
 
 [node name="hp_upgrade3" parent="powerups/hp_upgrade" instance=ExtResource( 4 )]
 position = Vector2( 505, -238 )
-frame = 3
+frame = 4
 
 [node name="hp_upgrade4" parent="powerups/hp_upgrade" instance=ExtResource( 4 )]
 position = Vector2( 1472, -576 )
-frame = 4
+frame = 5
 
 [node name="hp_upgrade5" parent="powerups/hp_upgrade" instance=ExtResource( 4 )]
 position = Vector2( 1648, -576 )
+frame = 5
+
+[node name="hp_upgrade6" parent="powerups/hp_upgrade" instance=ExtResource( 4 )]
+position = Vector2( 504, -312 )
 frame = 4
 
 [node name="dmg_upgrade" type="Node2D" parent="powerups"]
 
 [node name="dmg_upgrade" parent="powerups/dmg_upgrade" instance=ExtResource( 5 )]
 position = Vector2( 1312, -176 )
-frame = 1
+frame = 2
 
 [node name="dmg_upgrade2" parent="powerups/dmg_upgrade" instance=ExtResource( 5 )]
 position = Vector2( 93, -64 )
-frame = 1
+frame = 2
 
 [node name="dmg_upgrade3" parent="powerups/dmg_upgrade" instance=ExtResource( 5 )]
 position = Vector2( -76, 628 )
+frame = 1
 
 [node name="dmg_upgrade4" parent="powerups/dmg_upgrade" instance=ExtResource( 5 )]
 position = Vector2( -16, 626 )
-frame = 1
+frame = 2
 
 [node name="dmg_upgrade5" parent="powerups/dmg_upgrade" instance=ExtResource( 5 )]
 position = Vector2( 48, 626 )
-frame = 1
+frame = 2
 
 [node name="dmg_upgrade6" parent="powerups/dmg_upgrade" instance=ExtResource( 5 )]
 position = Vector2( 1368, -176 )
-frame = 2
+frame = 3
 
 [node name="dmg_upgrade7" parent="powerups/dmg_upgrade" instance=ExtResource( 5 )]
 position = Vector2( 826, 321 )
-frame = 1
+frame = 2
 
 [node name="dmg_upgrade8" parent="powerups/dmg_upgrade" instance=ExtResource( 5 )]
 position = Vector2( 771, 322 )
-frame = 1
+frame = 2
 
 [node name="dmg_upgrade9" parent="powerups/dmg_upgrade" instance=ExtResource( 5 )]
 position = Vector2( 719, 324 )
-frame = 1
+frame = 2
 
 [node name="dmg_upgrade10" parent="powerups/dmg_upgrade" instance=ExtResource( 5 )]
 position = Vector2( 741, 242 )
-frame = 1
+frame = 2
 
 [node name="dmg_upgrade11" parent="powerups/dmg_upgrade" instance=ExtResource( 5 )]
 position = Vector2( 797, 243 )
+frame = 1
 
 [node name="dmg_upgrade12" parent="powerups/dmg_upgrade" instance=ExtResource( 5 )]
 position = Vector2( 769, 165 )
+frame = 1
