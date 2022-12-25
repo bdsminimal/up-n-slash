@@ -19,15 +19,16 @@ var damage = 1
 
 var velvec = Vector2()
 var snap = Vector2(0, 100)
-var old_isFacingRight = true
 var isFacingRight = true
 var isJumping = false
 var isStriking = false
 var maxHealthChanged = false
+var isInvulnerable = false
 var isJustDamaged = false
 var controlsBlocked_forced = true
 var controlsBlockedByKnockback = false
 var isJustDamaged_fromRight
+var damageIntakeForce
 
 func _ready():
 	#isOnMenu
@@ -54,10 +55,15 @@ func _ready():
 func raiseDamage(dmg):
 	damage += dmg
 
-func takeDamage(dmg, isDirRight): #isDirRight - hit direction
+func takeDamage(dmg, isDirRight, DIF): #isDirRight - hit direction
+	if isInvulnerable: return
+	isInvulnerable = true
+	$invulFrame.start()
+	
 	health -= dmg
 	if health <= 0: get_tree().reload_current_scene()
 	isJustDamaged_fromRight = isDirRight
+	damageIntakeForce = DIF
 	isJustDamaged = true
 	controlsBlockedByKnockback = true
 	changeHealth_visuals(-dmg)
@@ -105,7 +111,7 @@ func get_input():
 		snap.y = 100
 		isJumping = !is_on_floor()
 	
-	old_isFacingRight = isFacingRight
+	var old_isFacingRight = isFacingRight
 	if Input.is_action_pressed('move_right'):
 		velvec.x += move_speed_x * 460
 		isFacingRight = true
@@ -138,12 +144,17 @@ func get_input():
 func _physics_process(delta):
 	get_input()
 	velvec.y += gravity_force * delta
+	
 	#move and apply knockback
+	var oldSnapY = snap.y
 	if isJustDamaged:
 		isJustDamaged = false
 		isJumping = true
-		velvec = move_and_slide_with_snap(Vector2(400 * (1 if isJustDamaged_fromRight else -1), -600), Vector2(0, 0), Vector2(0, -1), true)
-	else: velvec = move_and_slide_with_snap(velvec, snap, Vector2(0, -1), true)
+		velvec = damageIntakeForce
+		velvec.x *= 1 if isJustDamaged_fromRight else -1
+		snap.y = 0
+	velvec = move_and_slide_with_snap(velvec, snap, Vector2(0, -1), true)
+	snap.y = oldSnapY
 	
 	#debug purposes only
 	#$velvecRect.rect_position.x = velvec.normalized().x * 100 - 8
@@ -151,6 +162,7 @@ func _physics_process(delta):
 
 func set_animation():
 	$AnimatedSprite_body.speed_scale = 1
+	$AnimatedSprite_arms.speed_scale = 1
 	if isFacingRight:
 		$AnimatedSprite_body.flip_h = false
 		$AnimatedSprite_arms.flip_h = false
@@ -167,8 +179,11 @@ func set_animation():
 			$AnimatedSprite_body.stop()
 			if !isStriking: $AnimatedSprite_arms.stop()
 		elif velvec.y > 0:
+			$AnimatedSprite_body.frame = 3
 			$AnimatedSprite_body.play()
-			if !isStriking: $AnimatedSprite_arms.play()
+			if !isStriking:
+				$AnimatedSprite_arms.frame = 3
+				$AnimatedSprite_arms.play()
 	elif velvec.x == 0:
 		if (!isStriking):
 			$AnimatedSprite_body.play("idle")
@@ -183,6 +198,9 @@ func set_animation():
 		$AnimatedSprite_body.speed_scale = move_speed_x
 		if (!isStriking):
 			$AnimatedSprite_arms.play("walk")
+			
+			#changing animation speed by move_speed factor
+			$AnimatedSprite_arms.speed_scale = move_speed_x
 			$AnimatedSprite_arms.frame = $AnimatedSprite_body.frame
 
 
@@ -193,7 +211,11 @@ func _on_AnimatedSprite_arms_frame_changed():
 		#inflict damage with hitArea
 		var targets = $hitArea.get_overlapping_bodies()
 		for tar in targets:
-			tar.takeDamage(damage, isFacingRight)
+			tar.takeDamage(damage, isFacingRight, Vector2(200, -600))
+
+
+func _on_invulFrame_timeout():
+	isInvulnerable = false
 
 
 func _on_enemy_died():
