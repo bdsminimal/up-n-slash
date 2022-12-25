@@ -1,0 +1,294 @@
+[gd_scene load_steps=39 format=2]
+
+[ext_resource path="res://enemies/zombie/sprites/walk_arms_spriteSheet.png" type="Texture" id=1]
+[ext_resource path="res://enemies/zombie/sprites/idle_body_spriteSheet.png" type="Texture" id=2]
+[ext_resource path="res://fonts/MEPHISTO.TTF" type="DynamicFontData" id=3]
+[ext_resource path="res://enemies/zombie/sprites/walk_body_spriteSheet.png" type="Texture" id=4]
+[ext_resource path="res://enemies/zombie/sprites/attack_arms_spriteSheet.png" type="Texture" id=5]
+[ext_resource path="res://enemies/zombie/sprites/attack_body_spriteSheet.png" type="Texture" id=6]
+[ext_resource path="res://enemies/zombie/sprites/idle_arms_spriteSheet.png" type="Texture" id=7]
+[ext_resource path="res://enemies/zombie/Zombie.gd" type="Script" id=8]
+[ext_resource path="res://txtrs/Heart/Power Hurt_1.png" type="Texture" id=10]
+
+[sub_resource type="AtlasTexture" id=6]
+flags = 4
+atlas = ExtResource( 6 )
+region = Rect2( 0, 0, 160, 180 )
+
+[sub_resource type="AtlasTexture" id=7]
+flags = 4
+atlas = ExtResource( 2 )
+region = Rect2( 0, 0, 160, 180 )
+
+[sub_resource type="AtlasTexture" id=8]
+flags = 4
+atlas = ExtResource( 2 )
+region = Rect2( 160, 0, 160, 180 )
+
+[sub_resource type="AtlasTexture" id=27]
+flags = 4
+atlas = ExtResource( 4 )
+region = Rect2( 0, 0, 160, 180 )
+
+[sub_resource type="AtlasTexture" id=28]
+flags = 4
+atlas = ExtResource( 4 )
+region = Rect2( 160, 0, 160, 180 )
+
+[sub_resource type="AtlasTexture" id=29]
+flags = 4
+atlas = ExtResource( 4 )
+region = Rect2( 320, 0, 160, 180 )
+
+[sub_resource type="AtlasTexture" id=30]
+flags = 4
+atlas = ExtResource( 4 )
+region = Rect2( 0, 180, 160, 180 )
+
+[sub_resource type="AtlasTexture" id=31]
+flags = 4
+atlas = ExtResource( 4 )
+region = Rect2( 160, 180, 160, 180 )
+
+[sub_resource type="SpriteFrames" id=13]
+animations = [ {
+"frames": [ SubResource( 6 ) ],
+"loop": false,
+"name": "attack",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 7 ), SubResource( 8 ) ],
+"loop": true,
+"name": "idle",
+"speed": 2.5
+}, {
+"frames": [ SubResource( 27 ), SubResource( 28 ), SubResource( 29 ), SubResource( 30 ), SubResource( 31 ) ],
+"loop": true,
+"name": "walk",
+"speed": 6.0
+} ]
+
+[sub_resource type="AtlasTexture" id=14]
+flags = 4
+atlas = ExtResource( 5 )
+region = Rect2( 0, 0, 160, 180 )
+
+[sub_resource type="AtlasTexture" id=15]
+flags = 4
+atlas = ExtResource( 5 )
+region = Rect2( 160, 0, 160, 180 )
+
+[sub_resource type="AtlasTexture" id=16]
+flags = 4
+atlas = ExtResource( 5 )
+region = Rect2( 320, 0, 160, 180 )
+
+[sub_resource type="AtlasTexture" id=17]
+flags = 4
+atlas = ExtResource( 5 )
+region = Rect2( 0, 180, 160, 180 )
+
+[sub_resource type="AtlasTexture" id=18]
+flags = 4
+atlas = ExtResource( 5 )
+region = Rect2( 160, 180, 160, 180 )
+
+[sub_resource type="AtlasTexture" id=19]
+flags = 4
+atlas = ExtResource( 5 )
+region = Rect2( 320, 180, 160, 180 )
+
+[sub_resource type="AtlasTexture" id=20]
+flags = 4
+atlas = ExtResource( 5 )
+region = Rect2( 0, 360, 160, 180 )
+
+[sub_resource type="AtlasTexture" id=21]
+flags = 4
+atlas = ExtResource( 7 )
+region = Rect2( 0, 0, 160, 180 )
+
+[sub_resource type="AtlasTexture" id=22]
+flags = 4
+atlas = ExtResource( 7 )
+region = Rect2( 160, 0, 160, 180 )
+
+[sub_resource type="AtlasTexture" id=32]
+flags = 4
+atlas = ExtResource( 1 )
+region = Rect2( 0, 0, 160, 180 )
+
+[sub_resource type="AtlasTexture" id=33]
+flags = 4
+atlas = ExtResource( 1 )
+region = Rect2( 160, 0, 160, 180 )
+
+[sub_resource type="AtlasTexture" id=34]
+flags = 4
+atlas = ExtResource( 1 )
+region = Rect2( 320, 0, 160, 180 )
+
+[sub_resource type="AtlasTexture" id=35]
+flags = 4
+atlas = ExtResource( 1 )
+region = Rect2( 0, 180, 160, 180 )
+
+[sub_resource type="AtlasTexture" id=36]
+flags = 4
+atlas = ExtResource( 1 )
+region = Rect2( 160, 180, 160, 180 )
+
+[sub_resource type="SpriteFrames" id=1]
+animations = [ {
+"frames": [ SubResource( 14 ), SubResource( 15 ), SubResource( 16 ), SubResource( 17 ), SubResource( 18 ), SubResource( 19 ), SubResource( 20 ) ],
+"loop": false,
+"name": "attack",
+"speed": 13.0
+}, {
+"frames": [ SubResource( 21 ), SubResource( 22 ) ],
+"loop": true,
+"name": "idle",
+"speed": 2.5
+}, {
+"frames": [ SubResource( 32 ), SubResource( 33 ), SubResource( 34 ), SubResource( 35 ), SubResource( 36 ) ],
+"loop": true,
+"name": "walk",
+"speed": 6.0
+} ]
+
+[sub_resource type="CapsuleShape2D" id=2]
+radius = 16.0
+height = 96.0
+
+[sub_resource type="DynamicFont" id=3]
+size = 20
+font_data = ExtResource( 3 )
+
+[sub_resource type="RectangleShape2D" id=37]
+extents = Vector2( 16, 56 )
+
+[sub_resource type="RectangleShape2D" id=4]
+extents = Vector2( 40, 48 )
+
+[sub_resource type="Animation" id=5]
+resource_name = "hurt"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/path = NodePath("AnimatedSprite_body:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.3 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 0.866667, 0.113725, 0.113725, 1 ), Color( 1, 1, 1, 1 ) ]
+}
+
+[node name="Zombie" type="KinematicBody2D" groups=["enemy"]]
+position = Vector2( 0, -8 )
+collision_layer = 2
+collision_mask = 0
+script = ExtResource( 8 )
+
+[node name="AnimatedSprite_body" type="AnimatedSprite" parent="."]
+scale = Vector2( 0.8, 0.8 )
+frames = SubResource( 13 )
+animation = "idle"
+frame = 1
+playing = true
+flip_h = true
+
+[node name="AnimatedSprite_arms" type="AnimatedSprite" parent="."]
+scale = Vector2( 0.8, 0.8 )
+frames = SubResource( 1 )
+animation = "idle"
+frame = 1
+playing = true
+flip_h = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 0, 8 )
+shape = SubResource( 2 )
+
+[node name="Label" type="Label" parent="."]
+margin_left = -64.0
+margin_top = -128.0
+margin_right = 64.0
+margin_bottom = -103.0
+custom_fonts/font = SubResource( 3 )
+text = "Zombie"
+align = 1
+
+[node name="trigger" type="Timer" parent="."]
+
+[node name="stun" type="Timer" parent="."]
+one_shot = true
+
+[node name="baseHitArea" type="Area2D" parent="."]
+position = Vector2( 0, 8 )
+collision_layer = 0
+monitorable = false
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="baseHitArea"]
+shape = SubResource( 37 )
+
+[node name="hitArea" type="Area2D" parent="."]
+position = Vector2( 24, -16 )
+collision_layer = 0
+monitorable = false
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="hitArea"]
+shape = SubResource( 4 )
+
+[node name="vision_forGroundBelow" type="RayCast2D" parent="."]
+position = Vector2( 32, 0 )
+enabled = true
+cast_to = Vector2( 0, 128 )
+
+[node name="vision_forGroundInfront" type="RayCast2D" parent="."]
+position = Vector2( 48, -48 )
+enabled = true
+cast_to = Vector2( 0, 72 )
+
+[node name="vision_forPlayer" type="RayCast2D" parent="."]
+position = Vector2( 0, 8 )
+enabled = true
+cast_to = Vector2( 64, 0 )
+
+[node name="vision_forPlayerPos" type="RayCast2D" parent="."]
+visible = false
+position = Vector2( 0, 8 )
+enabled = true
+cast_to = Vector2( 128, 0 )
+
+[node name="scaler" type="Node2D" parent="."]
+scale = Vector2( 0.2, 0.2 )
+
+[node name="healthbar" type="TextureProgress" parent="scaler"]
+margin_left = -80.0
+margin_top = -480.0
+margin_right = 80.0
+margin_bottom = -320.0
+max_value = 6.0
+value = 6.0
+texture_under = ExtResource( 10 )
+texture_progress = ExtResource( 10 )
+tint_under = Color( 0, 0, 0, 1 )
+tint_progress = Color( 0, 1, 0.741176, 1 )
+
+[node name="VFX" type="AnimationPlayer" parent="."]
+anims/hurt = SubResource( 5 )
+
+[connection signal="animation_finished" from="AnimatedSprite_arms" to="." method="_on_AnimatedSprite_arms_animation_finished"]
+[connection signal="frame_changed" from="AnimatedSprite_arms" to="." method="_on_AnimatedSprite_arms_frame_changed"]
+[connection signal="timeout" from="trigger" to="." method="_on_trigger_timeout"]
+[connection signal="timeout" from="stun" to="." method="_on_stun_timeout"]
+[connection signal="body_entered" from="baseHitArea" to="." method="_on_baseHitArea_body_entered"]

@@ -1,6 +1,6 @@
 extends AnimatedSprite
 
-export var hp = 6
+export var hp = 3
 
 func _on_Area2D_area_entered(powerupEater):
 	powerupEater.get_parent().heal(-hp)

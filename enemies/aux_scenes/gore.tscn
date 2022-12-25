@@ -1,7 +1,8 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://enemies/aux_scenes/gore.gd" type="Script" id=1]
-[ext_resource path="res://enemies/warden/sprites/sprite.png" type="Texture" id=2]
+[ext_resource path="res://enemies/zombie/sprites/idle_arms_spriteSheet.png" type="Texture" id=2]
+[ext_resource path="res://enemies/zombie/sprites/idle_body_spriteSheet.png" type="Texture" id=3]
 
 [sub_resource type="Animation" id=9]
 resource_name = "fadeOut"
@@ -21,8 +22,8 @@ tracks/0/keys = {
 
 [sub_resource type="AtlasTexture" id=11]
 flags = 4
-atlas = ExtResource( 2 )
-region = Rect2( 60, 50, 40, 60 )
+atlas = ExtResource( 3 )
+region = Rect2( 60, 70, 40, 60 )
 
 [sub_resource type="ParticlesMaterial" id=8]
 resource_local_to_scene = true
@@ -41,18 +42,18 @@ hue_variation_random = 0.5
 
 [sub_resource type="AtlasTexture" id=2]
 flags = 4
-atlas = ExtResource( 2 )
-region = Rect2( 90, 110, 20, 50 )
+atlas = ExtResource( 3 )
+region = Rect2( 90, 130, 20, 50 )
 
 [sub_resource type="AtlasTexture" id=6]
 flags = 4
-atlas = ExtResource( 2 )
-region = Rect2( 60, 110, 10, 50 )
+atlas = ExtResource( 3 )
+region = Rect2( 60, 130, 10, 50 )
 
 [sub_resource type="AtlasTexture" id=7]
 flags = 4
 atlas = ExtResource( 2 )
-region = Rect2( 20, 60, 40, 20 )
+region = Rect2( 40, 90, 50, 20 )
 
 [sub_resource type="ParticlesMaterial" id=10]
 resource_local_to_scene = true
@@ -69,10 +70,15 @@ color = Color( 0.47451, 0.0666667, 0.0666667, 1 )
 hue_variation = -0.05
 hue_variation_random = 0.5
 
-[sub_resource type="AtlasTexture" id=5]
+[sub_resource type="AtlasTexture" id=12]
 flags = 4
 atlas = ExtResource( 2 )
-region = Rect2( 60, 0, 30, 50 )
+region = Rect2( 30, 80, 30, 10 )
+
+[sub_resource type="AtlasTexture" id=5]
+flags = 4
+atlas = ExtResource( 3 )
+region = Rect2( 60, 20, 30, 50 )
 
 [node name="gore" type="Node2D"]
 script = ExtResource( 1 )
@@ -93,6 +99,9 @@ anims/fadeOut = SubResource( 9 )
 collision_layer = 8
 collision_mask = 0
 mass = 100.0
+__meta__ = {
+"_edit_group_": true
+}
 
 [node name="Sprite" type="Sprite" parent="body"]
 scale = Vector2( 0.8, 0.8 )
@@ -198,13 +207,41 @@ __meta__ = {
 [node name="Sprite" type="Sprite" parent="arm"]
 scale = Vector2( 0.8, 0.8 )
 texture = SubResource( 7 )
+offset = Vector2( 0, -4 )
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="arm"]
-polygon = PoolVector2Array( -16, 0, -8, -8, 16, -8, 16, 0, -8, 0, -8, 8, -16, 8 )
+polygon = PoolVector2Array( -12, -3, 16, -3, 20, 5, -8, 5 )
 
 [node name="Particles2D" type="Particles2D" parent="arm"]
-position = Vector2( -16, 0 )
-rotation = 1.5708
+position = Vector2( 16, -10 )
+rotation = 3.14159
+lifetime = 6.0
+speed_scale = 2.0
+local_coords = false
+process_material = SubResource( 10 )
+__meta__ = {
+"_editor_description_": ""
+}
+
+[node name="arm2" type="RigidBody2D" parent="."]
+position = Vector2( 0, -24 )
+collision_layer = 8
+collision_mask = 0
+mass = 16.0
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Sprite" type="Sprite" parent="arm2"]
+scale = Vector2( 0.8, 0.8 )
+texture = SubResource( 12 )
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="arm2"]
+polygon = PoolVector2Array( -12, -4, 8, -4, 12, 4, -8, 4 )
+
+[node name="Particles2D" type="Particles2D" parent="arm2"]
+position = Vector2( 12, 0 )
+rotation = -1.5708
 lifetime = 6.0
 speed_scale = 2.0
 local_coords = false

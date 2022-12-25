@@ -24,3 +24,7 @@ func _on_menuButton_pressed():
 
 func _on_quitButton_pressed():
 	get_tree().quit()
+
+
+func _on_loadingScreen_visibility_changed():
+	self.set_process(false)
